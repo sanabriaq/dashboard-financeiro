@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Financeiro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500;700;800&family=Instrument+Serif:ital@1&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header class="topo">
+      <div class="topo-meta">
+        <span class="selo">● Ao vivo</span>
+        <span class="topo-data" id="data-atual"></span>
+      </div>
+      <h1>
+        Dashboard<br>
+        <span class="marca">Financeiro</span><em>.</em>
+      </h1>
+      <p class="topo-sub"></em> Defina o salário, lance cada gasto e veja para onde vai cada centavo.</p>
+    </header>
+
+    <!-- BENTO GRID -->
+    <main class="bento">
+
+      <!-- SALDO -->
+      <section class="bloco bloco-saldo" id="card-saldo" data-estado="ok">
+        <div class="bloco-cabeca">
+          <p class="rotulo">Saldo restante</p>
+          <span class="etiqueta" id="saldo-status">Tudo certo</span>
+        </div>
+        <p class="valor-gigante" id="saldo-restante">R$ 0,00</p>
+        <div class="medidor">
+          <div class="medidor-barra">
+            <div class="medidor-preenchido" id="medidor"></div>
+          </div>
+          <p class="medidor-texto"><strong id="percentual">0%</strong> do salário já foi usado</p>
+        </div>
+      </section>
+
+      <!-- SALÁRIO -->
+      <section class="bloco bloco-salario">
+        <p class="rotulo">Salário</p>
+        <p class="valor" id="salario">R$ 0,00</p>
+        <div class="linha-input">
+          <label for="input-salario" class="sr-only">Definir salário</label>
+          <input type="number" id="input-salario" placeholder="Novo salário" min="0" step="0.01">
+          <button id="btn-salario" class="btn btn-preto">Salvar</button>
+        </div>
+      </section>
+
+      <!-- TOTAL GASTO -->
+      <section class="bloco bloco-gasto">
+        <p class="rotulo">Total gasto</p>
+        <p class="valor" id="total-gasto">R$ 0,00</p>
+        <p class="nota"><span id="qtd-lancamentos">0</span> lançamentos este mês</p>
+      </section>
+
+      <!-- FORMULÁRIO -->
+      <section class="bloco bloco-form">
+        <h2>Nova despesa <span class="seta">↘</span></h2>
+
+        <div class="form-grupo">
+          <label for="descricao">Descrição</label>
+          <input type="text" id="descricao" placeholder="Ex: Mercado" maxlength="60">
+        </div>
+
+        <div class="form-duplo">
+          <div class="form-grupo">
+            <label for="valor">Valor (R$)</label>
+            <input type="number" id="valor" placeholder="150,00" min="0" step="0.01">
+          </div>
+
+          <div class="form-grupo">
+            <label for="categoria">Categoria</label>
+            <select id="categoria">
+              <option value="Alimentação">Alimentação</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Saúde">Saúde</option>
+              <option value="Moradia">Moradia</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="btn-adicionar" class="btn btn-grande">+ Adicionar despesa</button>
+        <p class="aviso" id="aviso" role="status"></p>
+      </section>
+
+      <!-- GRÁFICO -->
+      <section class="bloco bloco-grafico">
+        <h2>Para onde foi</h2>
+        <div class="grafico-area">
+          <div class="grafico-canvas">
+            <canvas id="grafico-pizza"></canvas>
+            <div class="grafico-centro">
+              <span>Total</span>
+              <strong id="grafico-total">R$ 0</strong>
+            </div>
+          </div>
+          <ul class="legenda" id="legenda"></ul>
+        </div>
+      </section>
+
+      <!-- LISTA -->
+      <section class="bloco bloco-lista">
+        <div class="bloco-cabeca">
+          <h2>Lançamentos</h2>
+          <span class="contador" id="contador">0</span>
+        </div>
+        <ul id="lista-despesas"></ul>
+      </section>
+
+    </main>
+
+    <footer class="rodape">
+      <span>Dashboard Financeiro — 2026</span>
+      <span>Dados salvos só no seu navegador ✦</span>
+    </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
