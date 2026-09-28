@@ -1,6 +1,7 @@
 
 let salario = parseFloat(localStorage.getItem('salario')) || 0;
 let despesas = JSON.parse(localStorage.getItem('despesas')) || [];
+let filtroAtivo = 'Todos';
 
 // Cores e ícones de cada categoria (mesma paleta do CSS)
 const CATEGORIAS = {
@@ -99,15 +100,18 @@ function atualizarCards() {
 
 function renderizarLista() {
   listaDespesas.innerHTML = '';
+  const visiveis = filtroAtivo === 'Todos'
+    ? despesas
+    : despesas.filter(d => d.categoria === filtroAtivo);
 
-  if (despesas.length === 0) {
+  if (visiveis.length === 0) {
     listaDespesas.innerHTML =
       '<li class="vazio"><strong>¯\\_(ツ)_/¯</strong>Nenhuma despesa ainda. Bora lançar a primeira?</li>';
     return;
   }
 
   // Mais recentes primeiro
-  despesas.map((despesa, index) => ({ despesa, index })).reverse().forEach(({ despesa, index }) => {
+  visiveis.map((despesa, index) => ({ despesa, index })).reverse().forEach(({ despesa, index }) => {
     const info = CATEGORIAS[despesa.categoria] || CATEGORIAS.Outros;
     const li = document.createElement('li');
     li.innerHTML = `
@@ -266,6 +270,15 @@ function atualizarGrafico() {
     }
   });
 }
+
+document.getElementById('filtros').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  filtroAtivo = chip.dataset.filtro;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('ativo'));
+  chip.classList.add('ativo');
+  renderizarLista();
+});
 
 // INICIALIZAR
 const hoje = new Date();
