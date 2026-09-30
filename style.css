@@ -214,6 +214,28 @@ h2 em {
   gap: 12px;
 }
 
+.cabeca-direita {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-ordem {
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 6px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-ordem:hover {
+  background: #000;
+  color: #fff;
+}
+
 .rotulo {
   font-family: var(--mono);
   font-size: 12px;

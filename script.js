@@ -2,6 +2,7 @@
 let salario = parseFloat(localStorage.getItem('salario')) || 0;
 let despesas = JSON.parse(localStorage.getItem('despesas')) || [];
 let filtroAtivo = 'Todos';
+let ordemAtiva = 'recentes';
 
 // Cores e ícones de cada categoria (mesma paleta do CSS)
 const CATEGORIAS = {
@@ -103,6 +104,9 @@ function renderizarLista() {
   const visiveis = filtroAtivo === 'Todos'
     ? despesas
     : despesas.filter(d => d.categoria === filtroAtivo);
+    const ordenados = ordemAtiva === 'recentes'
+  ? [...visiveis].reverse()
+  : [...visiveis].sort((a, b) => b.valor - a.valor);
 
   if (visiveis.length === 0) {
     listaDespesas.innerHTML =
@@ -111,7 +115,7 @@ function renderizarLista() {
   }
 
   // Mais recentes primeiro
-  visiveis.map((despesa, index) => ({ despesa, index })).reverse().forEach(({ despesa, index }) => {
+ordenados.map((despesa, index) => ({ despesa, index })).forEach(({ despesa, index }) => {
     const info = CATEGORIAS[despesa.categoria] || CATEGORIAS.Outros;
     const li = document.createElement('li');
     li.innerHTML = `
@@ -277,6 +281,13 @@ document.getElementById('filtros').addEventListener('click', e => {
   filtroAtivo = chip.dataset.filtro;
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('ativo'));
   chip.classList.add('ativo');
+  renderizarLista();
+});
+
+document.getElementById('btn-ordem').addEventListener('click', () => {
+  ordemAtiva = ordemAtiva === 'recentes' ? 'maior' : 'recentes';
+  const btn = document.getElementById('btn-ordem');
+  btn.textContent = ordemAtiva === 'recentes' ? '↓ Recentes' : '↓ Maior valor';
   renderizarLista();
 });
 
