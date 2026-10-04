@@ -149,6 +149,9 @@ function atualizarTudo() {
 }
 
 function deletarDespesa(index, botao) {
+  const confirmado = window.confirm('Remover essa despesa?');
+  if (!confirmado) return;
+
   const li = botao.closest('li');
   li.classList.add('saindo');
   setTimeout(() => {
