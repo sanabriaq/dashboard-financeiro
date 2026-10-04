@@ -129,7 +129,7 @@ ordenados.map((despesa, index) => ({ despesa, index })).forEach(({ despesa, inde
       </div>
       <div class="item-direita">
         <span class="item-valor">− ${formatarMoeda(despesa.valor)}</span>
-        <button aria-label="Remover despesa" onclick="deletarDespesa(${index}, this)">✕</button>
+        <button aria-label="Remover despesa" onclick="deletarDespesa(${despesas.indexOf(despesa)}, this)">✕</button>
       </div>
     `;
     listaDespesas.appendChild(li);
