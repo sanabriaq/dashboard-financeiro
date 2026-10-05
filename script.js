@@ -287,13 +287,39 @@ document.getElementById('filtros').addEventListener('click', e => {
   renderizarLista();
 });
 
-document.getElementById('btn-limpar').addEventListener('click', () => {
-  if (despesas.length === 0) return;
-  const confirmado = window.confirm('Apagar todas as despesas?');
-  if (!confirmado) return;
-  despesas = [];
-  atualizarTudo();
+
+document.getElementById('btn-ordem').addEventListener('click', () => {
+  ordemAtiva = ordemAtiva === 'recentes' ? 'maior' : 'recentes';
+  const btn = document.getElementById('btn-ordem');
+  btn.textContent = ordemAtiva === 'recentes' ? '↓ Recentes' : '↓ Maior valor';
+  renderizarLista();
 });
+
+document.getElementById('btn-exportar').addEventListener('click', () => {
+  if (despesas.length === 0) return mostrarAviso('Nenhuma despesa para exportar.');
+  
+  const linhas = [
+    ['Descrição', 'Categoria', 'Valor (R$)', 'Data'],
+    ...despesas.map(d => [
+      d.descricao,
+      d.categoria,
+      d.valor.toFixed(2).replace('.', ','),
+      d.data ? new Date(d.data).toLocaleDateString('pt-BR') : ''
+    ])
+  ];
+
+  const csv = linhas.map(l => l.join(';')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'despesas.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+
+
 // INICIALIZAR
 const hoje = new Date();
 document.getElementById('data-atual').textContent =
