@@ -231,6 +231,22 @@ h2 em {
   transition: background 0.15s;
 }
 
+.btn-limpar {
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 6px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-limpar:hover {
+  background: #ff4444;
+  border-color: #ff4444;
+  color: #fff;
+}
+
 .btn-ordem:hover {
   background: #000;
   color: #fff;

@@ -287,13 +287,13 @@ document.getElementById('filtros').addEventListener('click', e => {
   renderizarLista();
 });
 
-document.getElementById('btn-ordem').addEventListener('click', () => {
-  ordemAtiva = ordemAtiva === 'recentes' ? 'maior' : 'recentes';
-  const btn = document.getElementById('btn-ordem');
-  btn.textContent = ordemAtiva === 'recentes' ? '↓ Recentes' : '↓ Maior valor';
-  renderizarLista();
+document.getElementById('btn-limpar').addEventListener('click', () => {
+  if (despesas.length === 0) return;
+  const confirmado = window.confirm('Apagar todas as despesas?');
+  if (!confirmado) return;
+  despesas = [];
+  atualizarTudo();
 });
-
 // INICIALIZAR
 const hoje = new Date();
 document.getElementById('data-atual').textContent =
