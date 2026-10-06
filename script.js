@@ -3,6 +3,7 @@ let salario = parseFloat(localStorage.getItem('salario')) || 0;
 let despesas = JSON.parse(localStorage.getItem('despesas')) || [];
 let filtroAtivo = 'Todos';
 let ordemAtiva = 'recentes';
+let buscaAtiva = '';
 
 // Cores e ícones de cada categoria (mesma paleta do CSS)
 const CATEGORIAS = {
@@ -101,9 +102,15 @@ function atualizarCards() {
 
 function renderizarLista() {
   listaDespesas.innerHTML = '';
-  const visiveis = filtroAtivo === 'Todos'
+ let visiveis = filtroAtivo === 'Todos'
     ? despesas
     : despesas.filter(d => d.categoria === filtroAtivo);
+
+if (buscaAtiva) {
+    visiveis = visiveis.filter(d =>
+        d.descricao.toLowerCase().includes(buscaAtiva.toLowerCase())
+    );
+}
     const ordenados = ordemAtiva === 'recentes'
   ? [...visiveis].reverse()
   : [...visiveis].sort((a, b) => b.valor - a.valor);
@@ -318,7 +325,10 @@ document.getElementById('btn-exportar').addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-
+document.getElementById('busca').addEventListener('input', e => {
+  buscaAtiva = e.target.value.trim();
+  renderizarLista();
+});
 
 // INICIALIZAR
 const hoje = new Date();
