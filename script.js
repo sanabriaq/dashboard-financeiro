@@ -117,7 +117,7 @@ if (buscaAtiva) {
 
   if (visiveis.length === 0) {
     listaDespesas.innerHTML =
-      '<li class="vazio"><strong>¯\\_(ツ)_/¯</strong>Nenhuma despesa ainda. Bora lançar a primeira?</li>';
+      '<li class="vazio">Nenhuma despesa ainda.</li>';
     return;
   }
 
